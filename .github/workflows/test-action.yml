@@ -40,4 +40,4 @@ jobs:
         run:  wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=18I0xvtHjkKduxz05PUPfROIgf5ZLAGvr' -O srcbuggy.jar
 
       - name: Run srcBuggy
-        run: java -jar srbuggy.jar .
+        run: java -jar srcbuggy.jar .
