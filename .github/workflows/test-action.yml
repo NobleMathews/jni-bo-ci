@@ -39,5 +39,5 @@ jobs:
           # https://maven.pkg.github.com/NobleMathews/srcBuggy/1.0.2/srcbuggy-1.0.1.jar
         run:  wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=18I0xvtHjkKduxz05PUPfROIgf5ZLAGvr' -O srcbuggy.jar
 
-      - name: List Files
-        run: cd /home/runner/work/jni-bo-ci/jni-bo-ci && ls && pwd
+      - name: Run srcBuggy
+        run: java -jar srbuggy.jar .
