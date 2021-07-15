@@ -5,7 +5,8 @@ on:
   push:
     # Trigger the worflow on push event for all branches
     branches:
-      -  '**'  
+      - main
+#       -  '**'  
   pull_request:
     # Trigger the worflow on pull request event for main branch
     branches:
@@ -16,7 +17,7 @@ jobs:
   # "build" workflow
   build:
 
-    name: Process Java and C++ code
+    name: Buffer Overflow Check ( Java x C++ )
     #The type of runner on which job will run
     runs-on: ubuntu-latest
 
@@ -44,6 +45,5 @@ jobs:
 
       - name: Run srcBuggy
         run: sudo java -jar srcbuggy.jar $repo /usr/bin/srcml
-
         env:
           repo: ${{ github.workspace }}

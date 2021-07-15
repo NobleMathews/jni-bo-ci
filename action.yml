@@ -1,0 +1,48 @@
+name: Analyze Cross-language Buffer Overflows
+
+# Triggers the workflow on separate events 
+on:
+  push:
+    # Trigger the worflow on push event for all branches
+    branches:
+      -  '**'  
+  pull_request:
+    # Trigger the worflow on pull request event for main branch
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # "build" workflow
+  build:
+
+    name: Buffer Overflow Check ( Java x C++ )
+    #The type of runner on which job will run
+    runs-on: ubuntu-latest
+
+    # steps can run commands, setup tasks or run an action
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Checkout Source Code
+        # action/checkout@v2 checks-out your repo under github workspace.
+        uses: actions/checkout@v2
+
+      # Run build on the code
+      - name: Get srcBuggy from Github Packages
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.MAVEN }}
+          # https://maven.pkg.github.com/NobleMathews/srcBuggy/1.0.2/srcbuggy-1.0.2.jar
+        run:  wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=18I0xvtHjkKduxz05PUPfROIgf5ZLAGvr' -O srcbuggy.jar
+
+      - name: Install srcml
+        run: wget http://131.123.42.38/lmcrs/v1.0.0/srcml_1.0.0-1_ubuntu20.04.deb && sudo dpkg -i srcml_1.0.0-1_ubuntu20.04.deb
+
+      - name: Run srcBuggy
+        run: sudo java -jar srcbuggy.jar $repo /usr/bin/srcml
+        env:
+          repo: ${{ github.workspace }}
