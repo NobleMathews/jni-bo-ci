@@ -5,7 +5,8 @@ on:
   push:
     # Trigger the worflow on push event for all branches
     branches:
-      -  '**'  
+      - main
+#       -  '**'  
   pull_request:
     # Trigger the worflow on pull request event for main branch
     branches:
